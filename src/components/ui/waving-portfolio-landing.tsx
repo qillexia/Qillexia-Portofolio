@@ -700,8 +700,15 @@ function LetterCell({
       className={"wpl-cell" + (c.giant ? " wpl-giant" : "")}
       onPointerEnter={onEnter}
       onClick={onClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       role="button"
       tabIndex={0}
+      style={{ outline: "none" }}
     >
       <rect x={c.x} y={c.y} width={c.w} height={c.h} fill="transparent" />
       <svg
@@ -740,7 +747,9 @@ const WPL_CSS = `
 .wpl-par-letters{transform:translate(calc(var(--wpl-mx,0) * -12px),calc(var(--wpl-my,0) * -6px));transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .wpl-par-char{transform:translate(calc(var(--wpl-mx,0) * 8px),0px);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .wpl-reel.is-rolling{animation:wpl-roll var(--dur,1.3s) var(--delay,0s) both}
-.wpl-cell{cursor:pointer}
+.wpl-cell{cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.wpl-cell:focus,.wpl-cell:focus-visible{outline:none}
+.wpl-cell *{outline:none;-webkit-tap-highlight-color:transparent}
 
 .wpl-char{cursor:pointer;outline:none}
 .wpl-char:focus-visible .wpl-head{filter:drop-shadow(0 0 6px var(--wpl-accent))}
