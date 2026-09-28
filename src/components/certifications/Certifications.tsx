@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useLenis } from "lenis/react";
+import { useLanguage } from "@/context";
 
 export interface CertificateItem {
   id: string;
@@ -203,6 +204,7 @@ export const CERTIFICATES: CertificateItem[] = [
 ];
 
 export default function Certifications() {
+  const { lang, t } = useLanguage();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -211,7 +213,18 @@ export default function Certifications() {
   const openRafRef = useRef<number | null>(null);
   const lenis = useLenis();
 
-  const activeCert = CERTIFICATES.find((c) => c.id === activeId) ?? null;
+  const items: CertificateItem[] = CERTIFICATES.map((cert) => {
+    const translation = t.certifications.items.find((c) => c.id === cert.id);
+    if (!translation) return cert;
+    return {
+      ...cert,
+      title: translation.title,
+      issuer: translation.issuer,
+      date: translation.date,
+    };
+  });
+
+  const activeCert = items.find((c) => c.id === activeId) ?? null;
 
   const openModal = (cert: CertificateItem) => {
     if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
@@ -239,15 +252,19 @@ export default function Certifications() {
 
   const toggleShowAll = () => {
     if (showAll) {
+      setShowAll(false);
       const elem = document.getElementById("certifications");
       if (elem) {
         const rect = elem.getBoundingClientRect();
-        if (rect.top < 0) {
-          lenis?.scrollTo("#certifications", { offset: -60, duration: 0.8 });
+        if (rect.top < -100) {
+          setTimeout(() => {
+            lenis?.scrollTo("#certifications", { offset: -60, duration: 0.6 });
+          }, 150);
         }
       }
+    } else {
+      setShowAll(true);
     }
-    setShowAll((prev) => !prev);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -260,15 +277,15 @@ export default function Certifications() {
     if (Math.abs(diff) > 45) {
       if (diff > 0) {
         // Swipe left -> Next certificate
-        const idx = CERTIFICATES.findIndex((c) => c.id === activeId);
-        if (idx !== -1 && idx < CERTIFICATES.length - 1) {
-          setActiveId(CERTIFICATES[idx + 1].id);
+        const idx = items.findIndex((c) => c.id === activeId);
+        if (idx !== -1 && idx < items.length - 1) {
+          setActiveId(items[idx + 1].id);
         }
       } else {
         // Swipe right -> Prev certificate
-        const idx = CERTIFICATES.findIndex((c) => c.id === activeId);
+        const idx = items.findIndex((c) => c.id === activeId);
         if (idx > 0) {
-          setActiveId(CERTIFICATES[idx - 1].id);
+          setActiveId(items[idx - 1].id);
         }
       }
     }
@@ -285,14 +302,14 @@ export default function Certifications() {
       if (e.key === "Escape") {
         closeModal();
       } else if (e.key === "ArrowRight") {
-        const idx = CERTIFICATES.findIndex((c) => c.id === activeId);
-        if (idx !== -1 && idx < CERTIFICATES.length - 1) {
-          setActiveId(CERTIFICATES[idx + 1].id);
+        const idx = items.findIndex((c) => c.id === activeId);
+        if (idx !== -1 && idx < items.length - 1) {
+          setActiveId(items[idx + 1].id);
         }
       } else if (e.key === "ArrowLeft") {
-        const idx = CERTIFICATES.findIndex((c) => c.id === activeId);
+        const idx = items.findIndex((c) => c.id === activeId);
         if (idx > 0) {
-          setActiveId(CERTIFICATES[idx - 1].id);
+          setActiveId(items[idx - 1].id);
         }
       }
     };
@@ -303,7 +320,7 @@ export default function Certifications() {
       lenis?.start();
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeId, lenis]);
+  }, [activeId, lenis, items]);
 
   const renderCertRow = (cert: CertificateItem) => (
     <button
@@ -311,7 +328,7 @@ export default function Certifications() {
       type="button"
       onClick={() => openModal(cert)}
       className="w-full text-left py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-6 group hover:bg-neutral-50/80 active:bg-neutral-100/80 -mx-2.5 px-2.5 sm:-mx-4 sm:px-4 transition-colors duration-200 cursor-pointer"
-      aria-label={`Lihat sertifikat ${cert.title}`}
+      aria-label={`${t.certifications.viewCertificate}: ${cert.title}`}
     >
       <div className="flex items-start sm:items-center gap-2.5 sm:gap-5 min-w-0 flex-1">
         <span className="text-xs text-neutral-400 tracking-wider pt-0.5 sm:pt-0 shrink-0 font-medium">
@@ -359,7 +376,7 @@ export default function Certifications() {
       <div className="flex items-center justify-between pb-6 sm:pb-8">
         <div className="flex items-center">
           <span className="inline-block bg-neutral-950 text-white px-2.5 py-1 text-[11px] font-medium tracking-[0.2em] uppercase">
-            Section [06]
+            {t.certifications.sectionTag}
           </span>
         </div>
         <span className="text-xs text-neutral-400 tracking-[0.18em]">
@@ -370,7 +387,7 @@ export default function Certifications() {
       {/* Clean Minimalist Header: Pure Title */}
       <div className="pb-6 md:pb-8">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-neutral-950">
-          Sertifikasi &amp; Lisensi
+          {t.certifications.title}
         </h2>
       </div>
 
@@ -378,27 +395,27 @@ export default function Certifications() {
       <div className="border-t border-b border-neutral-200">
         {/* Always Visible: First 15 Certificates */}
         <div className="divide-y divide-neutral-200">
-          {CERTIFICATES.slice(0, INITIAL_LIMIT).map(renderCertRow)}
+          {items.slice(0, INITIAL_LIMIT).map(renderCertRow)}
         </div>
 
-        {/* Expandable Additional Certificates with Butter-Smooth CSS Grid Animation */}
+        {/* Expandable Additional Certificates with Butter-Smooth Hardware-Accelerated CSS Grid Animation */}
         <div
-          className={`grid transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          className={`grid transition-[grid-template-rows,opacity] duration-350 ease-out transform-gpu ${
             showAll
               ? "grid-rows-[1fr] opacity-100"
               : "grid-rows-[0fr] opacity-0 pointer-events-none"
           }`}
         >
-          <div className="overflow-hidden">
+          <div className="overflow-hidden min-h-0">
             <div className="divide-y divide-neutral-200 border-t border-neutral-200">
-              {CERTIFICATES.slice(INITIAL_LIMIT).map(renderCertRow)}
+              {items.slice(INITIAL_LIMIT).map(renderCertRow)}
             </div>
           </div>
         </div>
       </div>
 
       {/* Swiss Minimalist "Lihat Lebih Banyak" Toggle Button */}
-      {CERTIFICATES.length > INITIAL_LIMIT && (
+      {items.length > INITIAL_LIMIT && (
         <div className="pt-6 sm:pt-8 flex justify-center">
           <button
             type="button"
@@ -407,11 +424,14 @@ export default function Certifications() {
           >
             <span>
               {showAll
-                ? "Tampilkan Lebih Sedikit"
-                : `Lihat Lebih Banyak (${CERTIFICATES.length - INITIAL_LIMIT} Sertifikat)`}
+                ? t.certifications.showLess
+                : t.certifications.showMore.replace(
+                    "{count}",
+                    String(items.length - INITIAL_LIMIT)
+                  )}
             </span>
             <svg
-              className={`w-3.5 h-3.5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+              className={`w-3.5 h-3.5 transition-transform duration-350 ease-out ${
                 showAll ? "rotate-180" : ""
               }`}
               fill="none"
@@ -457,7 +477,7 @@ export default function Certifications() {
             <div className="flex items-center justify-between px-3.5 py-3 sm:px-5 sm:py-3.5 border-b border-neutral-800 bg-neutral-950/95 shrink-0">
               <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <span className="inline-block bg-white text-neutral-950 px-1.5 sm:px-2 py-0.5 text-[9px] sm:text-[10px] font-bold tracking-[0.18em] sm:tracking-[0.2em] uppercase shrink-0">
-                  [{activeCert.index} / {CERTIFICATES.length}]
+                  [{activeCert.index} / {items.length}]
                 </span>
                 <span className="text-xs text-neutral-400 tracking-[0.14em] sm:tracking-[0.16em] uppercase truncate max-w-[140px] xs:max-w-[200px] sm:max-w-none">
                   {activeCert.issuer}
@@ -468,9 +488,9 @@ export default function Certifications() {
                 type="button"
                 onClick={closeModal}
                 className="flex items-center gap-1.5 sm:gap-2 text-xs uppercase tracking-[0.16em] text-neutral-400 hover:text-white transition-colors cursor-pointer py-1 px-1.5 sm:px-2 -mr-1 sm:-mr-2 shrink-0"
-                aria-label="Tutup pratinjau sertifikat"
+                aria-label={t.certifications.closeModal}
               >
-                <span className="hidden sm:inline">Tutup</span>
+                <span className="hidden sm:inline">{lang === "ENG" ? "Close" : "Tutup"}</span>
                 <span className="text-[10px] border border-neutral-700 px-1.5 py-0.5 text-neutral-400 font-medium hidden sm:inline">
                   ESC
                 </span>
@@ -506,17 +526,17 @@ export default function Certifications() {
               />
 
               {/* Prev / Next Navigation Arrows */}
-              {CERTIFICATES.length > 1 && (
+              {items.length > 1 && (
                 <>
                   <button
                     type="button"
                     onClick={() => {
-                      const idx = CERTIFICATES.findIndex((c) => c.id === activeCert.id);
-                      if (idx > 0) setActiveId(CERTIFICATES[idx - 1].id);
+                      const idx = items.findIndex((c) => c.id === activeCert.id);
+                      if (idx > 0) setActiveId(items[idx - 1].id);
                     }}
-                    disabled={CERTIFICATES.findIndex((c) => c.id === activeCert.id) === 0}
+                    disabled={items.findIndex((c) => c.id === activeCert.id) === 0}
                     className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-700 flex items-center justify-center text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer shadow-lg"
-                    aria-label="Sertifikat sebelumnya"
+                    aria-label={t.certifications.prevCertificate}
                   >
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5"
@@ -535,15 +555,15 @@ export default function Certifications() {
                   <button
                     type="button"
                     onClick={() => {
-                      const idx = CERTIFICATES.findIndex((c) => c.id === activeCert.id);
-                      if (idx < CERTIFICATES.length - 1) setActiveId(CERTIFICATES[idx + 1].id);
+                      const idx = items.findIndex((c) => c.id === activeCert.id);
+                      if (idx < items.length - 1) setActiveId(items[idx + 1].id);
                     }}
                     disabled={
-                      CERTIFICATES.findIndex((c) => c.id === activeCert.id) ===
-                      CERTIFICATES.length - 1
+                      items.findIndex((c) => c.id === activeCert.id) ===
+                      items.length - 1
                     }
                     className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 bg-neutral-950/80 hover:bg-neutral-900 border border-neutral-700 flex items-center justify-center text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all cursor-pointer shadow-lg"
-                    aria-label="Sertifikat berikutnya"
+                    aria-label={t.certifications.nextCertificate}
                   >
                     <svg
                       className="w-4 h-4 sm:w-5 sm:h-5"

@@ -131,15 +131,15 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile/Tab Drawer with Butter-Smooth Expand/Collapse Transition */}
+      {/* Mobile/Tab Drawer with Butter-Smooth Hardware-Accelerated Transition */}
       <div
-        className={`lg:hidden grid transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] border-t bg-white/95 backdrop-blur-md overflow-hidden ${
+        className={`lg:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out transform-gpu border-t bg-white overflow-hidden shadow-lg ${
           isOpen
             ? "grid-rows-[1fr] opacity-100 border-neutral-100"
             : "grid-rows-[0fr] opacity-0 pointer-events-none border-transparent"
         }`}
       >
-        <div className="overflow-hidden">
+        <div className="overflow-hidden min-h-0">
           <div className="px-8 md:px-14 py-7 space-y-6">
             <nav className="flex flex-col space-y-5">
               {navItems.map((item, idx) => (
@@ -150,13 +150,13 @@ export default function Navbar() {
                     setIsOpen(false);
                     handleNavClick(e, item.href);
                   }}
-                  className={`text-sm tracking-[0.16em] uppercase text-neutral-600 hover:text-neutral-950 transition-all duration-300 transform ${
+                  className={`text-sm tracking-[0.16em] uppercase text-neutral-600 hover:text-neutral-950 transition-[transform,opacity] duration-250 ease-out transform-gpu ${
                     isOpen
                       ? "translate-y-0 opacity-100"
-                      : "-translate-y-2 opacity-0"
+                      : "-translate-y-1.5 opacity-0"
                   }`}
                   style={{
-                    transitionDelay: isOpen ? `${idx * 40}ms` : "0ms",
+                    transitionDelay: isOpen ? `${idx * 30}ms` : "0ms",
                   }}
                 >
                   {item.label}

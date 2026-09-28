@@ -223,13 +223,13 @@ export default function Works() {
       {/* Smooth Collapsible Container for Remaining Projects */}
       {projectsList.length > 3 && (
         <div
-          className={`grid transition-[grid-template-rows] duration-1000 ease-in-out ${
+          className={`grid transition-[grid-template-rows] duration-500 ease-out transform-gpu ${
             showAll ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
           }`}
         >
-          <div className="overflow-hidden border-t border-neutral-200">
+          <div className="overflow-hidden min-h-0 border-t border-neutral-200">
             <div
-              className={`divide-y divide-neutral-200 transition-opacity duration-1000 ease-in-out ${
+              className={`divide-y divide-neutral-200 transition-opacity duration-500 ease-out ${
                 showAll ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
             >

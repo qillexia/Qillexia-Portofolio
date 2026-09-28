@@ -33,6 +33,13 @@ export interface OrganizationRecordTranslation {
   roles: OrgRoleBlockTranslation[];
 }
 
+export interface CertificateItemTranslation {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+}
+
 export interface ProjectItemTranslation {
   id: string;
   title?: string;
@@ -71,6 +78,17 @@ export interface Dictionary {
     modalDocTitle: string;
     modalClose: string;
     items: AchievementItemTranslation[];
+  };
+  certifications: {
+    sectionTag: string;
+    title: string;
+    showMore: string;
+    showLess: string;
+    viewCertificate: string;
+    prevCertificate: string;
+    nextCertificate: string;
+    closeModal: string;
+    items: CertificateItemTranslation[];
   };
   organizations: {
     sectionTag: string;
