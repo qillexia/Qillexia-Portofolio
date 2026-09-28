@@ -25,6 +25,7 @@ export const dictionaryENG: Dictionary = {
     ],
     institution: "UNIVERSITAS KUNINGAN",
     major: "INFORMATICS ENGINEERING",
+    downloadCv: "Download CV",
   },
   works: {
     sectionTag: "Section [04]",

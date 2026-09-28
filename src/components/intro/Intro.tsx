@@ -147,9 +147,10 @@ export default function Intro({
               )}
             </div>
 
-            {/* Standalone Editorial Stamp Box */}
-            <div className="pt-3.5 flex justify-start w-full sm:w-auto">
-              <div className="w-full sm:w-auto border border-neutral-950 px-5 py-3 sm:px-6 sm:py-3.5 sm:inline-block">
+            {/* Stamp Box + Download CV: row on desktop, stacked full-width on mobile */}
+            <div className="pt-3.5 flex flex-col sm:flex-row sm:items-stretch gap-3 sm:gap-5 w-full lg:w-auto">
+              {/* Editorial Stamp Box */}
+              <div className="w-full sm:w-auto border border-neutral-950 px-5 py-3 sm:px-6 sm:py-3.5">
                 <div className="text-xs sm:text-[13px] font-bold tracking-[0.18em] text-neutral-950 uppercase leading-none">
                   {t.intro.institution}
                 </div>
@@ -157,6 +158,28 @@ export default function Intro({
                   {t.intro.major}
                 </div>
               </div>
+
+              {/* Download CV Button */}
+              <a
+                href="/assets/CV/CV Muhammad Haqil Abdillah.pdf"
+                download="CV Muhammad Haqil Abdillah.pdf"
+                className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 border border-neutral-300 hover:border-neutral-950 hover:bg-neutral-950 px-5 py-3 sm:px-6 sm:py-3.5 text-[11px] sm:text-xs font-medium tracking-[0.18em] uppercase text-neutral-600 hover:text-white transition-all duration-300"
+              >
+                <svg
+                  className="w-3.5 h-3.5 shrink-0 transition-transform duration-300 group-hover:translate-y-0.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={1.5}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                  />
+                </svg>
+                {t.intro.downloadCv}
+              </a>
             </div>
           </div>
         </div>

@@ -61,6 +61,7 @@ export interface Dictionary {
     paragraphs: string[];
     institution: string;
     major: string;
+    downloadCv: string;
   };
   works: {
     sectionTag: string;

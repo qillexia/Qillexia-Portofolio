@@ -25,6 +25,7 @@ export const dictionaryID: Dictionary = {
     ],
     institution: "UNIVERSITAS KUNINGAN",
     major: "TEKNIK INFORMATIKA",
+    downloadCv: "Unduh CV",
   },
   works: {
     sectionTag: "Section [04]",
