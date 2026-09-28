@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { useLenis } from "lenis/react";
 
@@ -20,7 +19,6 @@ const NAV_ITEMS: NavItem[] = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const { lang, setLang, t } = useLanguage();
   const lenis = useLenis();
   const navItems = t.navbar.items || NAV_ITEMS;
@@ -87,7 +85,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-[60] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100">
       <div className="relative max-w-[1440px] mx-auto px-8 md:px-14 lg:px-16 h-16 flex items-center justify-between">
-        {/* Left: Brand / Logo on Desktop, Language Switcher on Mobile/Tab */}
+        {/* Left: Brand on Desktop, Language Switcher on Mobile/Tab */}
         <div className="flex items-center">
           <Link
             href="/"
@@ -114,56 +112,9 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right Section: Language Toggle on Desktop + Mobile/Tab Menu Trigger */}
-        <div className="flex items-center space-x-4 sm:space-x-6">
+        {/* Right: Language Toggle on Desktop only */}
+        <div className="flex items-center">
           {renderLanguageSwitcher(false)}
-
-          {/* Mobile/Tab Menu Trigger */}
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden text-xs tracking-[0.18em] uppercase text-neutral-500 hover:text-neutral-950 transition-colors cursor-pointer py-1"
-            aria-expanded={isOpen}
-            aria-label="Toggle navigation menu"
-          >
-            {isOpen ? t.navbar.close : t.navbar.menu}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile/Tab Drawer with Butter-Smooth Hardware-Accelerated Transition */}
-      <div
-        className={`lg:hidden grid transition-[grid-template-rows,opacity] duration-300 ease-out transform-gpu border-t bg-white overflow-hidden shadow-lg ${
-          isOpen
-            ? "grid-rows-[1fr] opacity-100 border-neutral-100"
-            : "grid-rows-[0fr] opacity-0 pointer-events-none border-transparent"
-        }`}
-      >
-        <div className="overflow-hidden min-h-0">
-          <div className="px-8 md:px-14 py-7 space-y-6">
-            <nav className="flex flex-col space-y-5">
-              {navItems.map((item, idx) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    setIsOpen(false);
-                    handleNavClick(e, item.href);
-                  }}
-                  className={`text-sm tracking-[0.16em] uppercase text-neutral-600 hover:text-neutral-950 transition-[transform,opacity] duration-250 ease-out transform-gpu ${
-                    isOpen
-                      ? "translate-y-0 opacity-100"
-                      : "-translate-y-1.5 opacity-0"
-                  }`}
-                  style={{
-                    transitionDelay: isOpen ? `${idx * 30}ms` : "0ms",
-                  }}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
         </div>
       </div>
     </header>
