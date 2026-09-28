@@ -37,7 +37,7 @@ export const dictionaryID: Dictionary = {
     title: "Keahlian Teknis",
   },
   works: {
-    sectionTag: "Section [04]",
+    sectionTag: "Bagian [04]",
     title: "Karya Pilihan",
     viewProject: "Lihat Proyek",
     viewMore: "Lihat Lebih Banyak",

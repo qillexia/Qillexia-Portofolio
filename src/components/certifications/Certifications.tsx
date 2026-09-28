@@ -314,10 +314,10 @@ export default function Certifications() {
       key={cert.id}
       type="button"
       onClick={() => openModal(cert)}
-      className="w-full text-left py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-6 group hover:bg-neutral-50/80 active:bg-neutral-100/80 -mx-2.5 px-2.5 sm:-mx-4 sm:px-4 transition-colors duration-200 cursor-pointer"
+      className="w-full text-left py-4 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-6 group hover:bg-neutral-50/80 active:bg-neutral-100/80 mx-0 px-0 sm:-mx-4 sm:px-4 transition-colors duration-200 cursor-pointer"
       aria-label={`${t.certifications.viewCertificate}: ${cert.title}`}
     >
-      <div className="flex items-start sm:items-center gap-2.5 sm:gap-5 min-w-0 flex-1">
+      <div className="flex items-start sm:items-center gap-3 sm:gap-5 min-w-0 flex-1 pl-2 sm:pl-3 lg:pl-0">
         <span className="text-xs text-neutral-400 tracking-wider pt-0.5 sm:pt-0 shrink-0 font-medium">
           {cert.index}
         </span>
@@ -331,7 +331,7 @@ export default function Certifications() {
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-2.5 sm:gap-4 w-full sm:w-auto pt-1 sm:pt-0 shrink-0 self-end sm:self-center">
+      <div className="flex items-center justify-end gap-2.5 sm:gap-4 w-full sm:w-auto pt-1 sm:pt-0 shrink-0 self-end sm:self-center pr-0 sm:pr-3 lg:pr-0">
         <span className="text-xs text-neutral-500 font-medium tracking-normal sm:tracking-wider whitespace-nowrap">
           {cert.date}
         </span>
@@ -373,7 +373,7 @@ export default function Certifications() {
 
       {/* Clean Minimalist Header: Pure Title */}
       <div className="pb-6 md:pb-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-neutral-950">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-neutral-950">
           {t.certifications.title}
         </h2>
       </div>
