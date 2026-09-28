@@ -2,20 +2,25 @@ import type { Dictionary } from "./types";
 
 export const dictionaryID: Dictionary = {
   navbar: {
-    menu: "[ Menu ]",
-    close: "[ Close ]",
+    brand: "Portofolio",
+    menu: "Menu",
+    close: "Tutup",
     items: [
-      { label: "Intro", href: "#intro" },
-      { label: "Works", href: "#works" },
-      { label: "Achievements", href: "#achievements" },
-      { label: "Organizations", href: "#organizations" },
-      { label: "Contact", href: "#contact" },
+      { label: "Tentang", href: "#intro" },
+      { label: "Karya", href: "#works" },
+      { label: "Prestasi", href: "#achievements" },
+      { label: "Organisasi", href: "#organizations" },
+      { label: "Kontak", href: "#contact" },
     ],
   },
+  hero: {
+    sectionBadge: "Bagian [01]",
+    greeting: "Halo!",
+  },
   intro: {
-    sectionTag: "Section [02]",
+    sectionTag: "Bagian [02]",
     figureTag: "[ Fig. 01 ]",
-    portraitLabel: "Portrait",
+    portraitLabel: "Potret",
     headline:
       "Software Engineer & Creative Developer yang mendalami titik temu antara kejelasan sistem dan estetika visual.",
     paragraphs: [
@@ -27,9 +32,13 @@ export const dictionaryID: Dictionary = {
     major: "TEKNIK INFORMATIKA",
     downloadCv: "Unduh CV",
   },
+  skills: {
+    sectionTag: "Bagian [03]",
+    title: "Keahlian Teknis",
+  },
   works: {
     sectionTag: "Section [04]",
-    title: "Selected Works",
+    title: "Karya Pilihan",
     viewProject: "Lihat Proyek",
     viewMore: "Lihat Lebih Banyak",
     viewLess: "Tampilkan Lebih Sedikit",
@@ -79,7 +88,7 @@ export const dictionaryID: Dictionary = {
     ],
   },
   achievements: {
-    sectionTag: "Section [05]",
+    sectionTag: "Bagian [05]",
     title: "Prestasi & Penghargaan",
     zoomLabel: "Perbesar",
     modalDocTag: "Dokumentasi Prestasi",
@@ -107,7 +116,7 @@ export const dictionaryID: Dictionary = {
     ],
   },
   certifications: {
-    sectionTag: "Section [06]",
+    sectionTag: "Bagian [06]",
     title: "Sertifikasi & Lisensi",
     showMore: "Lihat Lebih Banyak ({count} Sertifikat)",
     showLess: "Tampilkan Lebih Sedikit",
@@ -257,7 +266,7 @@ export const dictionaryID: Dictionary = {
     ],
   },
   organizations: {
-    sectionTag: "Section [07]",
+    sectionTag: "Bagian [07]",
     title: "Pengalaman Organisasi",
     items: [
       {
@@ -364,7 +373,7 @@ export const dictionaryID: Dictionary = {
     ],
   },
   contact: {
-    sectionTag: "Section [08]",
+    sectionTag: "Bagian [08]",
     inquiriesTag: "Inquiries & Collaboration",
     heading: "Mari Terhubung & Membangun Solusi Digital Bersama.",
     availabilityTag: "Ketersediaan Kolaborasi",

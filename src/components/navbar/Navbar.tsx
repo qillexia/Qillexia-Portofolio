@@ -92,7 +92,7 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "/")}
             className="hidden lg:block text-[14px] tracking-[0.3em] uppercase text-neutral-950 hover:opacity-70 transition-opacity"
           >
-            <span className="font-bold">Portfolio</span>
+            <span className="font-bold">{t.navbar.brand}</span>
             <span className="text-neutral-400 font-light ml-1.5"></span>
           </Link>
           {renderLanguageSwitcher(true)}

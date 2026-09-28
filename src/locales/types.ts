@@ -49,9 +49,14 @@ export interface ProjectItemTranslation {
 
 export interface Dictionary {
   navbar: {
+    brand: string;
     menu: string;
     close: string;
     items: NavItemTranslation[];
+  };
+  hero: {
+    sectionBadge: string;
+    greeting: string;
   };
   intro: {
     sectionTag: string;
@@ -62,6 +67,10 @@ export interface Dictionary {
     institution: string;
     major: string;
     downloadCv: string;
+  };
+  skills: {
+    sectionTag: string;
+    title: string;
   };
   works: {
     sectionTag: string;

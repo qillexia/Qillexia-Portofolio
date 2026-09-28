@@ -1,10 +1,13 @@
 "use client";
 
+import { useLanguage } from "@/context";
 import WavingPortfolioLanding, {
   WavingPortfolioLandingProps,
 } from "@/components/ui/waving-portfolio-landing";
 
 export default function Hero(props: WavingPortfolioLandingProps) {
+  const { t } = useLanguage();
+
   return (
     <section id="hero" className="w-full sticky top-16 z-0">
       <WavingPortfolioLanding
@@ -16,9 +19,9 @@ export default function Hero(props: WavingPortfolioLandingProps) {
         paper="#ffffff"
         ink="#0a0a0a"
         height="calc(100svh - 4rem)"
-        sectionBadge="Section [01]"
+        sectionBadge={props.sectionBadge || t.hero.sectionBadge}
         sectionIndex="01 / 08"
-        greeting="Hello there!"
+        greeting={props.greeting || t.hero.greeting}
         {...props}
       />
     </section>

@@ -1,4 +1,7 @@
+"use client";
+
 import type { ComponentType } from "react";
+import { useLanguage } from "@/context";
 import {
   SiReact,
   SiTypescript,
@@ -90,6 +93,8 @@ const SKILL_CATEGORIES: SkillCategory[] = [
 ];
 
 export default function Skills() {
+  const { t } = useLanguage();
+
   const renderItem = (item: SkillItem) => {
     const Icon = item.icon;
     return (
@@ -120,7 +125,7 @@ export default function Skills() {
       <div className="flex items-center justify-between pb-8">
         <div className="flex items-center">
           <span className="inline-block bg-neutral-950 text-white px-2.5 py-1 text-[11px] font-medium tracking-[0.2em] uppercase">
-            Section [03]
+            {t.skills.sectionTag}
           </span>
         </div>
         <span className="text-xs text-neutral-400 tracking-[0.18em]">
@@ -131,7 +136,7 @@ export default function Skills() {
       {/* Clean Minimalist Header */}
       <div className="pb-6 md:pb-8">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.03em] text-neutral-950">
-          Keahlian Teknis
+          {t.skills.title}
         </h2>
       </div>
 

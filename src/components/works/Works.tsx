@@ -82,7 +82,7 @@ const PROJECTS: ProjectItem[] = [
     id: "cv-generator",
     index: "06",
     title: "CV Generator",
-    category: "Web Application, Document Engine",
+    category: "Web Application",
     year: "2024",
     description:
       "Aplikasi berbasis web untuk pembuatan Curriculum Vitae (CV) terstandarisasi secara otomatis dalam hitungan menit. Dilengkapi formulir input data terstruktur, kalkulasi tata letak dokumen, serta integrasi pustaka TCPDF guna menghasilkan berkas PDF yang presisi, rapi, dan siap digunakan.",
