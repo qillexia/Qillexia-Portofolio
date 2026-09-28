@@ -251,20 +251,7 @@ export default function Certifications() {
   }, []);
 
   const toggleShowAll = () => {
-    if (showAll) {
-      setShowAll(false);
-      const elem = document.getElementById("certifications");
-      if (elem) {
-        const rect = elem.getBoundingClientRect();
-        if (rect.top < -100) {
-          setTimeout(() => {
-            lenis?.scrollTo("#certifications", { offset: -60, duration: 0.6 });
-          }, 150);
-        }
-      }
-    } else {
-      setShowAll(true);
-    }
+    setShowAll((prev) => !prev);
   };
 
   const handleTouchStart = (e: React.TouchEvent) => {
