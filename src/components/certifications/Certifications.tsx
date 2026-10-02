@@ -22,7 +22,7 @@ export const CERTIFICATES: CertificateItem[] = [
     index: "01",
     title: "Juara 1 Lomba Web Design Tingkat Nasional",
     issuer: "Universitas Muhammadiyah Cirebon",
-    date: "Mei 2026",
+    date: "Sep 2026",
     imageSrc: "/assets/images/Sertifikat/Juara-1-Lomba-Web-Design-Tingkat-Nasional-UMC.png",
   },
   {
