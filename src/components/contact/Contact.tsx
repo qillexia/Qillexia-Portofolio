@@ -102,7 +102,7 @@ export default function Contact() {
 
         {/* LinkedIn */}
         <a
-          href="https://linkedin.com/in/haqilabdillah"
+          href="https://www.linkedin.com/in/haqil-abdillah-b5bb49313?utm_source=share_via&utm_content=profile&utm_medium=member_android"
           target="_blank"
           rel="noopener noreferrer"
           className="py-3 flex items-center justify-between group hover:bg-neutral-50/80 active:bg-neutral-100/80 transition-colors"
