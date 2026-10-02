@@ -129,7 +129,7 @@ export const dictionaryENG: Dictionary = {
         id: "cert-juara1-web",
         title: "1st Place National Web Design Competition",
         issuer: "Muhammadiyah University of Cirebon",
-        date: "May 2026",
+        date: "Sep 2026",
       },
       {
         id: "cert-juara2-pkm",
